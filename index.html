@@ -22,7 +22,6 @@
                 let op = this.props.operation;
 
                 switch (op) {
-                    case '**': return Math.pow(n1, n2);
                     case '-': return n1 - n2;
                     case '+': return n1 + n2;
                     case '*': return n1 * n2;
@@ -70,7 +69,6 @@
 
                         <label>Операция:</label>
                         <select value={operation} onChange={(e) => setOperation(e.target.value)}>
-                            <option value="**">**</option>
                             <option value="-">-</option>
                             <option value="+">+</option>
                             <option value="*">*</option>
