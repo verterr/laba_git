@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <title>Git лаба — Калькулятор</title>
+    <!-- Подключение React и Babel -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+
+    <!-- Контейнер, куда React будет рендерить приложение -->
+    <div id="root"></div>
+
+    <script type="text/babel">
+        // Компонент Calculator, принимающий параметры и отображающий результат
+        class Calculator extends React.Component {
+            calculate = () => {
+                let n1 = parseFloat(this.props.num1);
+                let n2 = parseFloat(this.props.num2);
+                let op = this.props.operation;
+
+                switch (op) {
+                    case '/': return n2 !== 0 ? n1 / n2 : "Ошибка: деление на ноль";
+                    default: return "Неверная операция";
+                }
+            }
+
+            render() {
+                return (
+                    <div class="calc-card">
+                        <h3>Результат вычисления:</h3>
+                        <div class="result">
+                            {this.props.num1} {this.props.operation} {this.props.num2} = {this.calculate()}
+                        </div>
+                    </div>
+                );
+            }
+        }
+
+        function App() {
+            const [num1, setNum1] = React.useState(5);
+            const [num2, setNum2] = React.useState(10);
+            const [operation, setOperation] = React.useState('+');
+
+            return (
+                <div>
+                    <h2>Лабораторная работа: Калькулятор на React</h2>
+                    
+                    <div class="inputs">
+                        <label>Число 1:</label>
+                        <input 
+                            type="number" 
+                            value={num1} 
+                            onChange={(e) => setNum1(e.target.value)} 
+                        />
+                        
+                        <label>Число 2:</label>
+                        <input 
+                        type="number" 
+                        value={num2} 
+                        onChange={(e) => setNum2(e.target.value)} 
+                        />
+                        </div>
+
+                        <label>Операция:</label>
+                        <select value={operation} onChange={(e) => setOperation(e.target.value)}>
+                            <option value="/">/</option>
+                        </select>
+
+                    <Calculator num1={num1} num2={num2} operation={operation} />
+                </div>
+            );
+        }
+
+        // Рендеринг приложения в DOM
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);  
+    </script>
+</body>
+</html>
